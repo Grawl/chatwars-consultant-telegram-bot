@@ -1,0 +1,26 @@
+{
+  "name": "chatwars-consultant-telegram-bot",
+  "version": "0.1.0",
+  "description": "Telegram bot for @chatwars game to help with 💰Gold",
+  "main": "index.js",
+  "author": {
+    "name": "Даниил Пронин",
+    "email": "mail@grawl.ru",
+    "url": "grawl.ru"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT",
+  "repository": "Grawl/chatwars-consultant-telegram-bot",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "node-telegram-bot-api": "^0.27.0",
+    "nodemon": "^1.11.0",
+    "simple-node-logger": "^0.93.16"
+  }
+}
