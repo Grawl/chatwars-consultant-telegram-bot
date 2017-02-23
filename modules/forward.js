@@ -1,7 +1,6 @@
 const log = require('../lib/log')
 const data = require('./../lib/data')
 const bag = require('./bag')
-const storeParser = require('./store-parser')
 const speaker = require('./../lib/speaker')
 const phrases = data.phrases
 const gameStrings = data.gameStrings
@@ -16,14 +15,6 @@ module.exports = bot => {
 			) {
 				bag(bot, message)
 			}
-			/*
-			я затрахался ковырять чёртовы регэкспы!
-			к тому же, у категории мечей нет заголовка.
-			так что данные собираем ручками.
-			else if(message.text.includes(data.gameStrings.storeCategoryTitle)) {
-				storeParser(bot, message)
-			}
-			*/
 			else {
 				say(phrases.brokenForward)
 			}
