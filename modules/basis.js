@@ -4,9 +4,9 @@ const speaker = require('./../lib/speaker')
 const phrases = data.phrases
 module.exports = bot => {
 	bot.on('message', message => {
+		if (message.forward_from && message.forward_from.id === data.ChatWarsBotID) return // forward.js
 		log.info('\n>> message:', message, '\n')
 		const say = (input) => speaker(bot, message, input)
-		if (message.forward_from && message.forward_from.id === data.ChatWarsBotID) return // store.js
 		if (message.text === '/start' || message.text === '/help' || message.text === '/about') {
 			say(phrases.hello + phrases.help)
 		}
@@ -14,7 +14,7 @@ module.exports = bot => {
 			say(phrases.unknownCommand)
 		}
 		else {
-			say(phrases.unrecognizedInput + phrases.help)
+			say(phrases.unrecognizedInput)
 		}
 	})
 }

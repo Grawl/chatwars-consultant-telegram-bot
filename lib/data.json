@@ -1,0 +1,252 @@
+{
+	"store": [
+		{
+			"sword": [
+				{
+					"id": "sword1",
+					"name": "Меч Ученика",
+					"cost": 3,
+					"attack": 1
+				},
+				{
+					"id": "sword2",
+					"name": "Короткий меч",
+					"cost": 30,
+					"attack": 3
+				},
+				{
+					"id": "sword3",
+					"name": "Длинный меч",
+					"cost": 244,
+					"attack": 6
+				},
+				{
+					"id": "sword4",
+					"name": "Меч Вдовы",
+					"cost": 645,
+					"attack": 10
+				},
+				{
+					"id": "sword5",
+					"name": "Меч Рыцаря",
+					"cost": 1440,
+					"attack": 16
+				},
+				{
+					"id": "sword6",
+					"name": "Эльфийский меч",
+					"cost": 1800,
+					"attack": 18,
+					"defence": 2
+				},
+				{
+					"id": "sword7",
+					"name": "Рапира",
+					"cost": 3100,
+					"attack": 22
+				}
+			],
+			"spear": [
+				{
+					"id": "spear1",
+					"name": "Короткое копье",
+					"cost": 55,
+					"attack": 3,
+					"defence": 1
+				},
+				{
+					"id": "spear2",
+					"name": "Длинное копье",
+					"cost": 976,
+					"attack": 13,
+					"defence": 3
+				},
+				{
+					"id": "spear3",
+					"name": "Эльфийское копье",
+					"cost": 1414,
+					"attack": 14,
+					"defence": 9
+				}
+			],
+			"dagger": [
+				{
+					"id": "dagger1",
+					"name": "Кухонный нож",
+					"cost": 3,
+					"attack": 1,
+					"requires": {
+						"attack": 1
+					}
+				},
+				{
+					"id": "dagger2",
+					"name": "Боевой нож",
+					"cost": 103,
+					"attack": 3,
+					"requires": {
+						"attack": 3
+					}
+				},
+				{
+					"id": "dagger3",
+					"name": "Кинжал",
+					"cost": 498,
+					"attack": 7,
+					"requires": {
+						"attack": 10
+					}
+				}
+			],
+			"shield": [
+				{
+					"id": "shield1",
+					"name": "Деревянный щит",
+					"cost": 3,
+					"defence": 1
+				},
+				{
+					"id": "shield2",
+					"name": "Щит скелета",
+					"cost": 50,
+					"defence": 2
+				},
+				{
+					"id": "shield3",
+					"name": "Бронзовый щит",
+					"cost": 103,
+					"defence": 3
+				},
+				{
+					"id": "shield4",
+					"name": "Серебряный щит",
+					"cost": 311,
+					"defence": 5
+				},
+				{
+					"id": "shield5",
+					"name": "Мифриловый щит",
+					"cost": 498,
+					"defence": 7
+				}
+			],
+			"gloves": [
+				{
+					"id": "gloves1",
+					"name": "Браслеты",
+					"cost": 1,
+					"defence": 1
+				},
+				{
+					"id": "gloves2",
+					"name": "Кожаные перчатки",
+					"cost": 43,
+					"defence": 2
+				},
+				{
+					"id": "gloves3",
+					"name": "Стальные перчатки",
+					"cost": 92,
+					"defence": 3
+				},
+				{
+					"id": "gloves4",
+					"name": "Серебряные перчатки",
+					"cost": 285,
+					"defence": 4
+				},
+				{
+					"id": "gloves5",
+					"name": "Мифриловые перчатки",
+					"cost": 370,
+					"defence": 6
+				}
+			],
+			"boots": [
+				{
+					"id": "boots1",
+					"name": "Сандалии",
+					"cost": 1,
+					"defence": 1
+				},
+				{
+					"id": "boots2",
+					"name": "Кожаные сапоги",
+					"cost": 43,
+					"defence": 2
+				},
+				{
+					"id": "boots3",
+					"name": "Стальные сапоги",
+					"cost": 92,
+					"defence": 3
+				},
+				{
+					"id": "boots4",
+					"name": "Серебряные сапоги",
+					"cost": 285,
+					"defence": 4
+				},
+				{
+					"id": "boots5",
+					"name": "Мифриловые сапоги",
+					"cost": 370,
+					"defence": 6
+				}
+			],
+			"armor": [
+				{
+					"id": "armor1",
+					"name": "Плотная куртка",
+					"cost": 3,
+					"defence": 2
+				},
+				{
+					"id": "armor2",
+					"name": "Кожаный доспех",
+					"cost": 30,
+					"defence": 4
+				},
+				{
+					"id": "armor3",
+					"name": "Стальная броня",
+					"cost": 330,
+					"defence": 8
+				},
+				{
+					"id": "armor4",
+					"name": "Мифриловая броня",
+					"cost": 430,
+					"attack": 1,
+					"defence": 9
+				}
+			],
+			"helmet": [
+				{
+					"id": "helmet1",
+					"name": "Шляпа",
+					"cost": 1,
+					"defence": 1
+				},
+				{
+					"id": "helmet2",
+					"name": "Стальной шлем",
+					"cost": 35,
+					"defence": 2
+				},
+				{
+					"id": "helmet3",
+					"name": "Серебряный шлем",
+					"cost": 80,
+					"defence": 3
+				},
+				{
+					"id": "helmet4",
+					"name": "Мифриловый шлем",
+					"cost": 317,
+					"defence": 5
+				}
+			]
+		}
+	]
+}
