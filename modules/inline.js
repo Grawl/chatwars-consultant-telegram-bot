@@ -2,6 +2,7 @@ const log = require('../lib/log')
 const fs = require('fs')
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const data = require('../lib/data')
+const env = require('dotenv').config().parsed
 module.exports = bot => {
 	const store = staticData.store
 	bot.on('inline_query', query => {
@@ -24,14 +25,21 @@ module.exports = bot => {
 			})
 			results = items.map(item => {
 				let title = ''
-				if (item.attack && item.attack > 0) title += `+${item.attack}⚔`
-				if (item.defence && item.defence > 0) title += `+${item.defence}🛡`
+				if(!item.attack) item.attack = 0
+				if(!item.defence) item.defence = 0
+				if (item.attack > 0) title += `+${item.attack}⚔`
+				if (item.defence > 0) title += `+${item.defence}🛡`
+				const sword = env.ICON_SWORD
+				const shield = env.ICON_SHIELD
+				const icon = item.attack > item.defence ? sword : shield
 				return {
 					type: 'article',
 					id: item.id,
 					title: `${item.cost}💰 ${item.name} ${title}`,
 					description: `/buy_${item.id}`,
 					message_text: `/buy_${item.id}`,
+					thumb_url: icon,
+					thumb_height: 50
 				}
 			})
 		}
