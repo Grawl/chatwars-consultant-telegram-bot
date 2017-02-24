@@ -1,7 +1,7 @@
 const log = require('../lib/log')
 const fs = require('fs')
-const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const data = require('../lib/data')
+const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const env = require('dotenv').config().parsed
 module.exports = bot => {
 	const store = staticData.store
