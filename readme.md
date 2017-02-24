@@ -23,10 +23,19 @@ Open [Telegram Botfather](https://t.me/BotFather) and create a `/newbot`. You wi
 361483634:AAFRwidokKmarw4cFxCiF65NTd8naqb1ngM
 ```
 
-Copy `.env.example` file as `.env` and add your HTTP API access token as `TOKEN` field, you should have something like this:
+Copy `.env.example` file as `.env` and fill out all variables:
+
+- Add your HTTP API access token as `TOKEN` field (used for connection)
+- Bot unique username as `BOT_USERNAME` (used for localization)
+- Icons in JPEG or PNG (used for inline results)
+
+You should have something like this:
 
 ```
 TOKEN=361483634:AAFRwidokKmarw4cFxCiF65NTd8naqb1ngM
+BOT_USERNAME=name_of_my_bot
+ICON_SWORD=http://url.to/image
+ICON_SHIELD=http://url.to/image
 ```
 
 Then, start bot server into a terminal into this repository root folder:

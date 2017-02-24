@@ -16,7 +16,6 @@ module.exports = (bot, message) => {
 			})
 		})
 	})
-	let phrase = ''
 	if (message.text.includes(gameStrings.equipment)) {
 		var equipment = blocks[0].split('\n').slice(1)
 		equipment = equipment.map(line => {
@@ -28,9 +27,6 @@ module.exports = (bot, message) => {
 				id: parseInt(match[9]),
 			}
 		})
-		// console.log(storeItems[4], equipment[0])
-		// { id: 'sword5', name: 'Меч Рыцаря', cost: 1440, attack: 16 }
-		// { name: 'Меч Рыцаря', attack: 16, defence: NaN, id: 105 }
 	}
 	if (message.text.includes(gameStrings.bag)) {
 		var bag = blocks[1].split('\n').slice(1)
@@ -92,15 +88,16 @@ module.exports = (bot, message) => {
 		'bagItemsCostDescription',
 		'bagItemsCostSumsDescription'
 	)
-	phrase += `🎽Экипировку можно продать за 💰${calc.equipmentCost}
+	let phrase = ''
+	phrase += data.phrases.sellEquipmentItems(calc.equipmentCost) + `
 ${calc.equipmentItemsCostDescription}
 ⌨️ ${calc.equipmentItemsCostSumsDescription} = ${calc.equipmentCost}
 
 `
-	phrase += `🎒Содержимое рюкзака можно продать за 💰${calc.bagCost}
+	phrase += data.phrases.sellBagItems(calc.bagCost) + `
 ${calc.bagItemsCostDescription}
 ⌨️ ${calc.bagItemsCostSumsDescription} = ${calc.bagCost}
 `
-	phrase += `\nВсё вместе можно продать за 💰${calc.allCost}`
+	phrase += `\n` + data.phrases.sellAllItems(calc.allCost)
 	say(phrase)
 }
