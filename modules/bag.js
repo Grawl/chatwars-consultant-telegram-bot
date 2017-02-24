@@ -48,7 +48,12 @@ module.exports = (bot, message) => {
 			if (equipmentItem.name === storeItem.name) equipmentItemsToSell.push(storeItem)
 		})
 		bag.forEach(bagItem => {
-			if (bagItem.name === storeItem.name) bagItemsToSell.push(storeItem)
+			if (bagItem.name === storeItem.name) {
+				const itemToAdd = Object.assign({
+					count: bagItem.count
+				}, storeItem)
+				bagItemsToSell.push(itemToAdd)
+			}
 		})
 	})
 	let calc = {
@@ -64,9 +69,11 @@ module.exports = (bot, message) => {
 	function itemsCalc(itemsToSell, itemsCost, itemsCostDescription, itemsCostSumsDescription) {
 		let sums = []
 		itemsToSell.forEach(item => {
-			const itemSellCost = data.storeSell(item.cost)
+			const count = item.count ? item.count : 1
+			const itemSellCost = data.storeSell(item.cost) * count
 			calc[itemsCost] += itemSellCost
-			calc[itemsCostDescription] += `\n${item.name}: ${item.cost} × ${data.phrases.storeSellRatio} = ${itemSellCost}`
+			const countString = item.count > 1 ? ` × ${item.count}` : ''
+			calc[itemsCostDescription] += `\n${item.name}: ${item.cost} × ${data.phrases.storeSellRatio}${countString} = ${itemSellCost}`
 			sums.push(itemSellCost)
 		})
 		sums.forEach((sum, index, array) => {
