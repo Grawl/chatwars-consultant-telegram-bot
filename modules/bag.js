@@ -21,7 +21,7 @@ module.exports = (bot, message) => {
 		equipment = equipment.map(line => {
 			const match = line.match(data.bagItemsRegex)
 			return {
-				name: match[1],
+				name: match[1].trim(),
 				attack: parseInt(match[5]),
 				defence: parseInt(match[7]),
 				id: parseInt(match[9]),
