@@ -4,7 +4,7 @@ import bag from './bag'
 import speaker from './../lib/speaker'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
-module.exports = bot => {
+export default bot => {
 	bot.on('message', message => {
 		log.info('\n>> message:', message, '\n')
 		const say = (input) => speaker(bot, message, input)

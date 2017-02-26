@@ -2,7 +2,7 @@ import log from '../lib/log'
 import data from './../lib/data'
 import speaker from './../lib/speaker'
 const phrases = data.phrases
-module.exports = bot => {
+export default bot => {
 	bot.on('message', message => {
 		if (message.forward_from && message.forward_from.id === data.ChatWarsBotID) return // forward.js
 		log.info('\n>> message:', message, '\n')

@@ -4,7 +4,7 @@ import data from '../lib/data'
 import dotenv from 'dotenv'
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const env = dotenv.config().parsed
-module.exports = bot => {
+export default bot => {
 	const store = staticData.store
 	bot.on('inline_query', query => {
 		log.info('\n>> inline query:', query, '\n')

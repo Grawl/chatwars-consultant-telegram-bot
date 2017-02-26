@@ -4,7 +4,7 @@ const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 import speaker from './../lib/speaker'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
-module.exports = (bot, message) => {
+export default (bot, message) => {
 	const say = (input) => speaker(bot, message, input)
 	const blocks = message.text.split('\n\n')
 	const store = staticData.store
