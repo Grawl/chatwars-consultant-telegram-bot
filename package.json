@@ -9,7 +9,7 @@
     "url": "grawl.ru"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=7.0.0"
   },
   "license": "MIT",
   "repository": "Grawl/chatwars-consultant-telegram-bot",
@@ -22,7 +22,8 @@
     "dotenv": "^4.0.0",
     "node-telegram-bot-api": "^0.27.0",
     "pm2": "^2.4.0",
-    "simple-node-logger": "^0.93.16"
+    "simple-node-logger": "^0.93.16",
+    "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

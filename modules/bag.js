@@ -20,11 +20,16 @@ module.exports = (bot, message) => {
 		var equipment = blocks[0].split('\n').slice(1)
 		equipment = equipment.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			return {
-				name: match[1].trim(),
-				attack: parseInt(match[5]),
-				defence: parseInt(match[7]),
-				id: parseInt(match[9]),
+			try {
+				return {
+					name: match[1].trim(),
+					attack: parseInt(match[5]),
+					defence: parseInt(match[7]),
+					id: parseInt(match[9]),
+				}
+			}
+			catch (error) {
+				console.error(error)
 			}
 		})
 	}
@@ -32,12 +37,17 @@ module.exports = (bot, message) => {
 		var bag = blocks[1].split('\n').slice(1)
 		bag = bag.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			return {
-				name: match[1],
-				count: parseInt(match[3]),
-				attack: parseInt(match[5]),
-				defence: parseInt(match[7]),
-				id: parseInt(match[9]),
+			try {
+				return {
+					name: match[1],
+					count: parseInt(match[3]),
+					attack: parseInt(match[5]),
+					defence: parseInt(match[7]),
+					id: parseInt(match[9]),
+				}
+			}
+			catch (error) {
+				console.error(error)
 			}
 		})
 	}
