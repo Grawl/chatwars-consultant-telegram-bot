@@ -1,7 +1,7 @@
-const log = require('../lib/log')
-const data = require('./../lib/data')
-const bag = require('./bag')
-const speaker = require('./../lib/speaker')
+import log from '../lib/log'
+import data from './../lib/data'
+import bag from './bag'
+import speaker from './../lib/speaker'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 module.exports = bot => {

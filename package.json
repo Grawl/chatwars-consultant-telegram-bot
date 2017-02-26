@@ -14,13 +14,17 @@
   "license": "MIT",
   "repository": "Grawl/chatwars-consultant-telegram-bot",
   "scripts": {
-    "start": "pm2 start index.js --name bot",
-    "start-native": "nohup node index > log 2>&1 &",
+    "start-pm2": "pm2 start index.js --name bot",
+    "start-native": "nohup babel-node index > log 2>&1 &",
+    "start": "babel-node index",
     "dev": "nodemon"
   },
   "dependencies": {
+    "babel-cli": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
+    "babel-runtime": "^6.23.0",
     "dotenv": "^4.0.0",
     "node-telegram-bot-api": "^0.27.0",
     "pm2": "^2.4.0",

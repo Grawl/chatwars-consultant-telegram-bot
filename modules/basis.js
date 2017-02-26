@@ -1,6 +1,6 @@
-const log = require('../lib/log')
-const data = require('./../lib/data')
-const speaker = require('./../lib/speaker')
+import log from '../lib/log'
+import data from './../lib/data'
+import speaker from './../lib/speaker'
 const phrases = data.phrases
 module.exports = bot => {
 	bot.on('message', message => {

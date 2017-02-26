@@ -1,7 +1,7 @@
-const fs = require('fs')
-const data = require('./../lib/data')
+import fs from 'fs'
+import data from './../lib/data'
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
-const speaker = require('./../lib/speaker')
+import speaker from './../lib/speaker'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 module.exports = (bot, message) => {

@@ -1,6 +1,10 @@
-const TelegramBot = require('node-telegram-bot-api')
-const env = require('dotenv').config().parsed
+import TelegramBot from 'node-telegram-bot-api'
+import dotenv from 'dotenv'
+import basis from './modules/basis'
+import forward from './modules/forward'
+import inline from './modules/inline'
+const env = dotenv.config().parsed
 const bot = new TelegramBot(env.TOKEN, {polling: true})
-require('./modules/basis')(bot)
-require('./modules/forward')(bot)
-require('./modules/inline')(bot)
+basis(bot)
+forward(bot)
+inline(bot)
