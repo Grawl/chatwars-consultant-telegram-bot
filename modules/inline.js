@@ -1,6 +1,7 @@
 import log from '../lib/log'
 import fs from 'fs'
 import data from '../lib/data'
+import dotenv from 'dotenv'
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const env = dotenv.config().parsed
 module.exports = bot => {
