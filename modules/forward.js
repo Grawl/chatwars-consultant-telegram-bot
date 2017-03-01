@@ -2,6 +2,7 @@ import log from '../lib/log'
 import data from './../lib/data'
 import bag from './bag'
 import speaker from './../lib/speaker'
+import storeParser from './store-parser'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 export default bot => {
@@ -14,6 +15,9 @@ export default bot => {
 				message.text.includes(gameStrings.bag)
 			) {
 				bag(bot, message)
+			}
+			else if (message.text.includes('Предметы на продажу')) {
+				storeParser(bot, message)
 			}
 			else {
 				say(phrases.brokenForward)

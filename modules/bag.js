@@ -30,6 +30,8 @@ export default (bot, message) => {
 			}
 			catch (error) {
 				console.error(error)
+				log.error('cannot match input to parse: ', item)
+				say(data.phrases.parseError)
 			}
 		})
 	}

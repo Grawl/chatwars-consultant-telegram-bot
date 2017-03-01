@@ -17,7 +17,7 @@
     "start-pm2": "pm2 start index.js --name bot",
     "start-native": "nohup babel-node index > log 2>&1 &",
     "start": "babel-node index",
-    "dev": "nodemon --exec babel-node index"
+    "dev": "nodemon --exec 'babel-node index'"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",
