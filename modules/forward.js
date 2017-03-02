@@ -11,7 +11,7 @@ export default bot => {
 	bot.on('message', message => {
 		log.info('\n>> message:', message, '\n')
 		const say = (input) => speaker(bot, message, input)
-		if (message.forward_from && message.forward_from.id === env.OFFICIAL_BOT_ID) {
+		if (message.forward_from && message.forward_from.id === parseInt(env.OFFICIAL_BOT_ID)) {
 			if (
 				message.text.includes(gameStrings.equipment) ||
 				message.text.includes(gameStrings.bag)
