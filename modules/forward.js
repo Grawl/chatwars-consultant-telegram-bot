@@ -1,10 +1,10 @@
 import dotenv from 'dotenv'
-const env = dotenv.config().parsed
 import log from '../lib/log'
 import data from './../lib/data'
 import bag from './bag'
 import speaker from './../lib/speaker'
 import storeParser from './store-parser'
+const env = dotenv.config().parsed
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 export default bot => {

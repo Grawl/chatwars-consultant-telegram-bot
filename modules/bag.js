@@ -1,9 +1,9 @@
 import fs from 'fs'
 import dotenv from 'dotenv'
-const env = dotenv.config().parsed
 import log from '../lib/log'
 import speaker from './../lib/speaker'
 import data from './../lib/data'
+const env = dotenv.config().parsed
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const phrases = data.phrases
 const gameStrings = data.gameStrings
@@ -23,7 +23,7 @@ export default (bot, message) => {
 		var equipment = blocks[0].split('\n').slice(1)
 		equipment = equipment.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			try {
+			if(match) {
 				return {
 					name: match[1].trim(),
 					attack: parseInt(match[5]),
@@ -31,10 +31,10 @@ export default (bot, message) => {
 					id: parseInt(match[9]),
 				}
 			}
-			catch (error) {
-				console.error(error)
-				log.error('cannot match input to parse: ', item)
-				say(data.phrases.parseError)
+			else {
+				return {
+					name: line
+				}
 			}
 		})
 	}
@@ -42,7 +42,7 @@ export default (bot, message) => {
 		var bag = blocks[1].split('\n').slice(1)
 		bag = bag.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			try {
+			if(match) {
 				return {
 					name: match[1],
 					count: parseInt(match[3]),
@@ -51,8 +51,10 @@ export default (bot, message) => {
 					id: parseInt(match[9]),
 				}
 			}
-			catch (error) {
-				console.error(error)
+			else {
+				return {
+					name: line
+				}
 			}
 		})
 	}
@@ -65,13 +67,11 @@ export default (bot, message) => {
 				unknownEquipmentItems.push(item)
 			}
 		})
-		console.log('unknownEquipmentItems', unknownEquipmentItems)
 		bag.forEach(item => {
 			if (!storeItems.some(storeItem => storeItem.name === item.name)) {
 				unknownBagItems.push(item)
 			}
 		})
-		console.log('unknownBagItems', unknownBagItems)
 	}
 
 	let allUnknownItems = unknownEquipmentItems.concat(unknownBagItems)

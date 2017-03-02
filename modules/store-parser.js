@@ -1,8 +1,8 @@
 import log from '../lib/log'
 import fs from 'fs'
 import data from './../lib/data'
-const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 import speaker from './../lib/speaker'
+const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 export default (bot, message) => {
