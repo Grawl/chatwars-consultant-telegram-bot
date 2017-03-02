@@ -1,7 +1,10 @@
 import fs from 'fs'
+import dotenv from 'dotenv'
+const env = dotenv.config().parsed
+import log from '../lib/log'
+import speaker from './../lib/speaker'
 import data from './../lib/data'
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
-import speaker from './../lib/speaker'
 const phrases = data.phrases
 const gameStrings = data.gameStrings
 export default (bot, message) => {
@@ -53,21 +56,49 @@ export default (bot, message) => {
 			}
 		})
 	}
-	let equipmentItemsToSell = []
-	let bagItemsToSell = []
-	storeItems.forEach(storeItem => {
-		equipment.forEach((equipmentItem) => {
-			if (equipmentItem.name === storeItem.name) equipmentItemsToSell.push(storeItem)
-		})
-		bag.forEach(bagItem => {
-			if (bagItem.name === storeItem.name) {
-				const itemToAdd = Object.assign({
-					count: bagItem.count
-				}, storeItem)
-				bagItemsToSell.push(itemToAdd)
+	let unknownEquipmentItems = []
+	let unknownBagItems = []
+	unknownItems()
+	function unknownItems() {
+		equipment.forEach(item => {
+			if (!storeItems.some(storeItem => storeItem.name === item.name)) {
+				unknownEquipmentItems.push(item)
 			}
 		})
-	})
+		console.log('unknownEquipmentItems', unknownEquipmentItems)
+		bag.forEach(item => {
+			if (!storeItems.some(storeItem => storeItem.name === item.name)) {
+				unknownBagItems.push(item)
+			}
+		})
+		console.log('unknownBagItems', unknownBagItems)
+	}
+
+	let allUnknownItems = unknownEquipmentItems.concat(unknownBagItems)
+	if (allUnknownItems.length > 0) {
+		log.info('>> new items: ', allUnknownItems)
+	}
+	let equipmentItemsToSell = []
+	let bagItemsToSell = []
+	itemsToSell()
+	function itemsToSell() {
+		storeItems.forEach(storeItem => {
+			equipment.forEach((equipmentItem) => {
+				if (equipmentItem.name === storeItem.name) {
+					equipmentItemsToSell.push(storeItem)
+				}
+			})
+			bag.forEach(bagItem => {
+				if (bagItem.name === storeItem.name) {
+					const itemToAdd = Object.assign({
+						count: bagItem.count
+					}, storeItem)
+					bagItemsToSell.push(itemToAdd)
+				}
+			})
+		})
+	}
+
 	let calc = {
 		allCost: 0,
 		'equipmentCost': 0,
@@ -77,8 +108,21 @@ export default (bot, message) => {
 		'bagItemsCostDescription': '',
 		'bagItemsCostSumsDescription': '',
 	}
-
-	function itemsCalc(itemsToSell, itemsCost, itemsCostDescription, itemsCostSumsDescription) {
+	itemsCalc(
+		equipmentItemsToSell,
+		unknownEquipmentItems,
+		'equipmentCost',
+		'equipmentItemsCostDescription',
+		'equipmentItemsCostSumsDescription'
+	)
+	itemsCalc(
+		bagItemsToSell,
+		unknownBagItems,
+		'bagCost',
+		'bagItemsCostDescription',
+		'bagItemsCostSumsDescription'
+	)
+	function itemsCalc(itemsToSell, unknownItems, itemsCost, itemsCostDescription, itemsCostSumsDescription) {
 		let sums = []
 		itemsToSell.forEach(item => {
 			const count = item.count ? item.count : 1
@@ -88,6 +132,10 @@ export default (bot, message) => {
 			calc[itemsCostDescription] += `\n${item.name}: ${item.cost} × ${data.phrases.storeSellRatio}${countString} = ${itemSellCost}`
 			sums.push(itemSellCost)
 		})
+		unknownItems.forEach(item => {
+			calc[itemsCostDescription] += `\n${item.name}: ???`
+			sums.push('???')
+		})
 		sums.forEach((sum, index, array) => {
 			const plus = index + 1 < array.length ? ' + ' : ''
 			calc[itemsCostSumsDescription] += sum + plus
@@ -95,28 +143,34 @@ export default (bot, message) => {
 		calc.allCost += calc[itemsCost]
 	}
 
-	itemsCalc(
-		equipmentItemsToSell,
-		'equipmentCost',
-		'equipmentItemsCostDescription',
-		'equipmentItemsCostSumsDescription'
-	)
-	itemsCalc(
-		bagItemsToSell,
-		'bagCost',
-		'bagItemsCostDescription',
-		'bagItemsCostSumsDescription'
-	)
+	function phraseUnknownCount(array) {
+		let phrase = ' + ???'
+		let string = ''
+		for (let i = 0; i < array.length; i++) {
+			string += phrase
+		}
+		return array.length > 0 ? string : ''
+	}
+
+	function calcEqualSymbol(array) {
+		return array.length > 0 ? ' ≈ ' : ' = '
+	}
+
 	let phrase = ''
-	phrase += data.phrases.sellEquipmentItems(calc.equipmentCost) + `
+	phrase += data.phrases.sellEquipmentItems(calc.equipmentCost)
+		+ phraseUnknownCount(unknownEquipmentItems)
+		+ `
 ${calc.equipmentItemsCostDescription}
-⌨️ ${calc.equipmentItemsCostSumsDescription} = ${calc.equipmentCost}
+⌨️ ${calc.equipmentItemsCostSumsDescription}` + calcEqualSymbol(unknownEquipmentItems) + `${calc.equipmentCost}
 
 `
-	phrase += data.phrases.sellBagItems(calc.bagCost) + `
+	phrase += data.phrases.sellBagItems(calc.bagCost)
+		+ phraseUnknownCount(unknownBagItems)
+		+ `
 ${calc.bagItemsCostDescription}
-⌨️ ${calc.bagItemsCostSumsDescription} = ${calc.bagCost}
+⌨️ ${calc.bagItemsCostSumsDescription}` + calcEqualSymbol(unknownBagItems) + `${calc.bagCost}
 `
-	phrase += `\n` + data.phrases.sellAllItems(calc.allCost)
+	phrase += `\n` + data.phrases.sellAllItems(calc.allCost) + phraseUnknownCount(allUnknownItems)
+	if (allUnknownItems.length > 0) phrase += data.phrases.unknownItemsTip
 	say(phrase)
 }

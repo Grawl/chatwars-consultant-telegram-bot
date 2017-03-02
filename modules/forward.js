@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+const env = dotenv.config().parsed
 import log from '../lib/log'
 import data from './../lib/data'
 import bag from './bag'
@@ -9,7 +11,7 @@ export default bot => {
 	bot.on('message', message => {
 		log.info('\n>> message:', message, '\n')
 		const say = (input) => speaker(bot, message, input)
-		if (message.forward_from && message.forward_from.id === data.ChatWarsBotID) {
+		if (message.forward_from && message.forward_from.id === env.OFFICIAL_BOT_ID) {
 			if (
 				message.text.includes(gameStrings.equipment) ||
 				message.text.includes(gameStrings.bag)
