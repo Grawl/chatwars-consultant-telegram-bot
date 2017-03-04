@@ -10,7 +10,7 @@ export default bot => {
 		log.info('\n>> inline query:', query, '\n')
 		let results = []
 		if (!isNaN(query.query)) {
-			const sum = query.query
+			const sum = parseInt(query.query)
 			let items = []
 			store.forEach(obj => {
 				Object.values(obj).forEach(type => {
@@ -42,6 +42,8 @@ export default bot => {
 					thumb_url: icon,
 					thumb_height: 50
 				}
+			}).filter(item => {
+				return item.id
 			})
 		}
 		else results.push({
@@ -51,6 +53,8 @@ export default bot => {
 			description: data.phrases.inlineStoreSuggestionErrorDescription,
 			message_text: data.phrases.inlineStoreSuggestionErrorSendMessage,
 		})
+		results = results.slice(0, 10)
+		console.log(results.length)
 		bot.answerInlineQuery(query.id, results)
 	})
 }
