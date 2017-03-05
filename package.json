@@ -15,9 +15,10 @@
   "repository": "Grawl/chatwars-consultant-telegram-bot",
   "scripts": {
     "start-pm2": "pm2 start index.js --name bot",
-    "start-native": "nohup babel-node index > log 2>&1 &",
-    "start": "babel-node index",
-    "dev": "nodemon --exec 'babel-node index'"
+    "start": "nohup babel-node index > log 2>&1 &",
+    "start-log": "babel-node index",
+    "dev": "nodemon --exec 'babel-node index'",
+    "log-new-items": "grep -r 'new items' 'logs'"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",
