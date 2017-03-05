@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import log from '../lib/log'
 import speaker from './../lib/speaker'
 import data from './../lib/data'
+import emojiRegex from 'emoji-regex'
 const env = dotenv.config().parsed
 const staticData = JSON.parse(fs.readFileSync('./lib/data.json', 'utf8'))
 const phrases = data.phrases
@@ -23,12 +24,9 @@ export default (bot, message) => {
 		var equipment = blocks[0].split('\n').slice(1)
 		equipment = equipment.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			if(match) {
+			if (match) {
 				return {
 					name: match[1].trim(),
-					attack: parseInt(match[5]),
-					defence: parseInt(match[7]),
-					id: parseInt(match[9]),
 				}
 			}
 			else {
@@ -42,13 +40,10 @@ export default (bot, message) => {
 		var bag = blocks[1].split('\n').slice(1)
 		bag = bag.map(line => {
 			const match = line.match(data.bagItemsRegex)
-			if(match) {
+			if (match) {
 				return {
-					name: match[1],
+					name: match[1].trim(),
 					count: parseInt(match[3]),
-					attack: parseInt(match[5]),
-					defence: parseInt(match[7]),
-					id: parseInt(match[9]),
 				}
 			}
 			else {
@@ -61,14 +56,18 @@ export default (bot, message) => {
 	let unknownEquipmentItems = []
 	let unknownBagItems = []
 	unknownItems()
+	function removeEmoji(string) {
+		return string.replace(emojiRegex(), '')
+	}
+
 	function unknownItems() {
 		equipment.forEach(item => {
-			if (!storeItems.some(storeItem => storeItem.name === item.name)) {
+			if (!storeItems.some(storeItem => removeEmoji(storeItem.name) === removeEmoji(item.name))) {
 				unknownEquipmentItems.push(item)
 			}
 		})
 		bag.forEach(item => {
-			if (!storeItems.some(storeItem => storeItem.name === item.name)) {
+			if (!storeItems.some(storeItem => removeEmoji(storeItem.name) === removeEmoji(item.name))) {
 				unknownBagItems.push(item)
 			}
 		})

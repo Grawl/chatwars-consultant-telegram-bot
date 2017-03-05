@@ -26,6 +26,7 @@
     "babel-preset-es2017": "^6.22.0",
     "babel-runtime": "^6.23.0",
     "dotenv": "^4.0.0",
+    "emoji-regex": "^6.1.0",
     "node-telegram-bot-api": "^0.27.0",
     "pm2": "^2.4.0",
     "simple-node-logger": "^0.93.16",

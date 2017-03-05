@@ -54,7 +54,6 @@ export default bot => {
 			message_text: data.phrases.inlineStoreSuggestionErrorSendMessage,
 		})
 		results = results.slice(0, 10)
-		console.log(results.length)
 		bot.answerInlineQuery(query.id, results)
 	})
 }
